@@ -1,8 +1,21 @@
+// App.tsx
 import React from 'react';
-import HomePage from './HomePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/Homepage'; 
+import CreateProject from './pages/CreateProject'; 
+import DisplayContent from './pages/DisplayContent';
 
-function App() {
-  return <HomePage />;
-}
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* Define routes for each page */}
+        <Route path="/" element={<HomePage />} />
+        <Route path="/create" element={<CreateProject />} />
+        <Route path="/display" element={<DisplayContent/>} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;
