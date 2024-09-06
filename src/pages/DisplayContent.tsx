@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 type ContributorRole = 'Cartoonist' | 'AI generator' | 'Marketer'
 
@@ -13,6 +13,7 @@ interface ContributionModalProps {
   onClose: () => void
   role: ContributorRole
   reward: string
+  onSubmit: (file: File) => void
 }
 
 interface DonationModalProps {
@@ -27,16 +28,26 @@ interface ContributionCard {
   image: string
 }
 
-const ContributionModal: React.FC<ContributionModalProps> = ({ isOpen, onClose, role, reward }) => {
+const ContributionModal: React.FC<ContributionModalProps> = ({ isOpen, onClose, role, reward, onSubmit }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   if (!isOpen) return null
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (fileInputRef.current && fileInputRef.current.files && fileInputRef.current.files[0]) {
+      onSubmit(fileInputRef.current.files[0])
+      onClose()
+    }
+  }
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-gray-800 p-6 rounded-lg max-w-md w-full">
         <h2 className="text-2xl font-bold mb-4 text-white">Contribute as {role}</h2>
         <p className="mb-4 text-gray-300">Reward: {reward}</p>
-        <form onSubmit={(e) => { e.preventDefault(); console.log('Submission for', role); onClose(); }}>
-          <input type="file" className="mb-4 text-white" />
+        <form onSubmit={handleSubmit}>
+          <input type="file" ref={fileInputRef} className="mb-4 text-white" />
           <button type="submit" className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90">
             Submit
           </button>
@@ -75,17 +86,14 @@ export default function LostCityPage() {
   const [selectedRole, setSelectedRole] = useState<ContributorRole | null>(null)
   const [isContributionModalOpen, setIsContributionModalOpen] = useState(false)
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false)
+  const [contributionCards, setContributionCards] = useState<ContributionCard[]>([
+    { id: 1, title: 'Character Design', contributor: 'John Doe', image: '/placeholder.svg?height=200&width=200' },
+  ])
 
   const episodes: Episode[] = [
     { id: 1, title: 'Episode 1' },
     { id: 2, title: 'Episode 2' },
     { id: 3, title: 'Episode 3', isNew: true },
-  ]
-
-  const contributionCards: ContributionCard[] = [
-    { id: 1, title: 'Character Design', contributor: 'John Doe', image: '/placeholder.svg?height=200&width=200' },
-    { id: 2, title: 'Background Art', contributor: 'Jane Smith', image: '/placeholder.svg?height=200&width=200' },
-    { id: 3, title: 'Story Concept', contributor: 'Alex Johnson', image: '/placeholder.svg?height=200&width=200' },
   ]
 
   const handleWatchNow = () => {
@@ -111,6 +119,16 @@ export default function LostCityPage() {
   const handleDisapprove = (id: number) => {
     console.log(`Disapproved contribution ${id}`)
     // Implement your disapproval logic here
+  }
+
+  const handleContributionSubmit = (file: File) => {
+    const newCard: ContributionCard = {
+      id: Date.now(),
+      title: `New Contribution`,
+      contributor: 'You',
+      image: URL.createObjectURL(file),
+    }
+    setContributionCards(prevCards => [newCard, ...prevCards])
   }
 
   return (
@@ -261,6 +279,7 @@ export default function LostCityPage() {
         onClose={() => setIsContributionModalOpen(false)}
         role={selectedRole || 'Cartoonist'}
         reward="NFT / Ownership / Name Credit"
+        onSubmit={handleContributionSubmit}
       />
 
       <DonationModal
