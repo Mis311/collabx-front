@@ -136,15 +136,30 @@ export default function LostCityPage() {
       <header className="flex justify-between items-center p-4 bg-gray-800">
         <a href='./'> <div className="text-2xl font-bold">CollabX</div></a>
         <nav className="space-x-4">
-          {['Home', 'Collaborate', 'Funding', 'Join CollabX Team'].map((item) => (
-            <a
-              href="#"
-              key={item}
-              className="hover:text-purple-400 transition-colors duration-300"
-            >
-              {item}
-            </a>
-          ))}
+          <a
+            href="./"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Home
+          </a>
+          <a
+            href="/display"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Collaborate
+          </a>
+          <a
+            href="./episode"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Read
+          </a>
+          <a
+            href="./inspiration"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            AI
+          </a>
         </nav>
         <button className="bg-gradient-to-br from-purple-900  to-indigo-900 px-4 py-2 rounded hover:opacity-90 transition-opacity duration-300">
           Login

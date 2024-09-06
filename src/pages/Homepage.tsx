@@ -1,15 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { FiHeart, FiRepeat, FiMaximize2 } from 'react-icons/fi';
+import React, { useState, useEffect } from "react";
+import {
+  FiHeart,
+  FiRepeat,
+  FiMaximize2,
+  FiX,
+  FiCopy,
+  FiUserPlus,
+} from "react-icons/fi";
 
 const HomePage: React.FC = () => {
-  const [projectTitle, setProjectTitle] = useState('');
-  const [activeTab, setActiveTab] = useState<'new' | 'popular'>('new');
+  const [projectTitle, setProjectTitle] = useState("");
+  const [activeTab, setActiveTab] = useState<"new" | "popular">("new");
   const [expandedVideo, setExpandedVideo] = useState<string | null>(null);
-
+  const [showContactPopup, setShowContactPopup] = useState(false);
   const handleExpand = (videoUrl: string) => {
     setExpandedVideo(videoUrl);
   };
 
+  const toggleContactPopup = () => {
+    setShowContactPopup(!showContactPopup);
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText("https://collabx.com/join");
+    alert("Link copied to clipboard!");
+  };
   return (
     <div className="bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900 text-white min-h-screen relative overflow-hidden">
       {/* Star background */}
@@ -30,19 +45,35 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Header/NavBar */}
-      <header className="relative z-10 flex justify-between items-center p-4 bg-gradient-to-r from-blue-900 to-purple-800">
+      <header className="relative z-10 flex justify-between items-center p-4 mr-4 bg-gradient-to-r from-blue-900 to-purple-800">
         <div className="text-2xl font-bold">CollabX</div>
         <nav className="space-x-4">
-          {['Home', 'Collaborate', 'Funding', 'Join CollabX Team'].map((item) => (
-            <a
-              href="#"
-              key={item}
-              className="hover:text-blue-300 transition-colors duration-300"
-            >
-              {item}
-            </a>
-          ))}
+          <a
+            href="./"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Home
+          </a>
+          <a
+            href="/display"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Collaborate
+          </a>
+          <a
+            href="./episode"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Read
+          </a>
+          <a
+            href="./inspiration"
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            AI
+          </a>
         </nav>
+
         <button className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-500 transition-colors duration-300">
           Login
         </button>
@@ -54,14 +85,18 @@ const HomePage: React.FC = () => {
         <div className="flex justify-between items-center mb-8">
           <div className="space-x-4 text-2xl">
             <button
-              className={`font-bold ${activeTab === 'new' ? 'text-blue-300' : 'text-gray-400'}`}
-              onClick={() => setActiveTab('new')}
+              className={`font-bold ${
+                activeTab === "new" ? "text-blue-300" : "text-gray-400"
+              }`}
+              onClick={() => setActiveTab("new")}
             >
               New
             </button>
             <button
-              className={`font-bold ${activeTab === 'popular' ? 'text-blue-300' : 'text-gray-400'}`}
-              onClick={() => setActiveTab('popular')}
+              className={`font-bold ${
+                activeTab === "popular" ? "text-blue-300" : "text-gray-400"
+              }`}
+              onClick={() => setActiveTab("popular")}
             >
               Popular
             </button>
@@ -84,19 +119,21 @@ const HomePage: React.FC = () => {
 
         {/* Sub-Navigation (All, Video, etc.) */}
         <div className="space-x-12 mb-12 text-lg font-normal ">
-          {['All', 'Video', 'Manga/Webtoon', 'Visual Novel/Text'].map((item) => (
-            <button
-              key={item}
-              className="hover:text-blue-300 hover:underline transition-colors duration-300 hover:font-semibold"
-            >
-              {item}
-            </button>
-          ))}
+          {["All", "Video", "Manga/Webtoon", "Visual Novel/Text"].map(
+            (item) => (
+              <button
+                key={item}
+                className="hover:text-blue-300 hover:underline transition-colors duration-300 hover:font-semibold"
+              >
+                {item}
+              </button>
+            )
+          )}
         </div>
 
         {/* Project Cards */}
         <div className="grid grid-cols-2 gap-6 ">
-          {activeTab === 'new' ? (
+          {activeTab === "new" ? (
             <>
               <a href={`/display`}>
                 <ProjectCard
@@ -144,12 +181,24 @@ const HomePage: React.FC = () => {
             </>
           )}
         </div>
-
+        <footer className="relative z-10 py-4 text-center">
+          <button
+            onClick={toggleContactPopup}
+            className="hover:text-blue-300 transition-colors duration-300"
+          >
+            Contact
+          </button>
+        </footer>
         {/* Expanded Video Modal */}
         {expandedVideo && (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
             <div className="relative bg-gradient-to-br from-blue-900 to-purple-800 p-4 rounded-lg">
-              <video src={expandedVideo} className="w-full h-auto" controls autoPlay />
+              <video
+                src={expandedVideo}
+                className="w-full h-auto"
+                controls
+                autoPlay
+              />
               <button
                 className="absolute top-2 right-2 text-white hover:text-blue-300 transition-colors duration-300"
                 onClick={() => setExpandedVideo(null)}
@@ -160,7 +209,47 @@ const HomePage: React.FC = () => {
           </div>
         )}
       </main>
-
+      {showContactPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-gradient-to-br from-blue-900 to-purple-800 p-8 rounded-lg max-w-2xl relative">
+            <button
+              className="absolute top-4 right-4 text-white hover:text-blue-300 transition-colors duration-300"
+              onClick={toggleContactPopup}
+            >
+              <FiX size={24} />
+            </button>
+            <h2 className="text-3xl font-bold mb-4">Join Collab X Team</h2>
+            <p className="mb-4">
+              Welcome to CollabX - a place where creativity meets collaboration!
+              Here, people find exciting projects to collaborate on, companies
+              discover great stories to bring to life, and artists and marketers
+              leverage their skills to scale their stories across different
+              media and languages.
+            </p>
+            <p className="mb-4">
+              But collaboration at CollabX isn't just for artists. We're also
+              looking for talented developers, business minds, and sponsors to
+              join our community and help bring these amazing stories to life.
+            </p>
+            <div className="flex space-x-4 mt-6">
+              <button
+                className="flex items-center bg-blue-600 px-4 py-2 rounded hover:bg-blue-500 transition-colors duration-300"
+                onClick={() => {
+                  /* Add join functionality */
+                }}
+              >
+                <FiUserPlus className="mr-2" /> Join Now
+              </button>
+              <button
+                className="flex items-center bg-green-600 px-4 py-2 rounded hover:bg-green-500 transition-colors duration-300"
+                onClick={copyLink}
+              >
+                <FiCopy className="mr-2" /> Copy Invite Link
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* CSS for animations */}
       <style>
         {`
@@ -185,7 +274,15 @@ interface ProjectCardProps {
   onExpand: (videoUrl: string) => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ title, author, image, isNew, views, likes, onExpand }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  title,
+  author,
+  image,
+  isNew,
+  views,
+  likes,
+  onExpand,
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -196,12 +293,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, author, image, isNew, 
     >
       <div className="relative">
         {isHovered ? (
-          <video src={image} className="w-full h-64 object-cover" autoPlay muted loop />
+          <video
+            src={image}
+            className="w-full h-64 object-cover"
+            autoPlay
+            muted
+            loop
+          />
         ) : (
           <img src={image} alt={title} className="w-full h-64 object-cover" />
         )}
         {isNew && (
-          <span className="absolute top-2 left-2 bg-blue-500 px-2 py-1 rounded text-sm">New</span>
+          <span className="absolute top-2 left-2 bg-blue-500 px-2 py-1 rounded text-sm">
+            New
+          </span>
         )}
         <button
           className="absolute top-2 right-2 bg-black bg-opacity-50 px-2 py-1 rounded text-sm hover:bg-opacity-75 transition-colors duration-300"

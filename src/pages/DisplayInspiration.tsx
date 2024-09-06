@@ -45,34 +45,42 @@ const DisplayInspiration: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900 text-white relative overflow-hidden">
-      {/* Digital human silhouette */}
-      <div className="absolute inset-0 opacity-10">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" className="w-full h-full">
-          <path d="M50 0 L100 100 L0 100 Z" fill="url(#digital-gradient)" />
-        </svg>
-        <defs>
-          <linearGradient id="digital-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4F46E5" />
-            <stop offset="100%" stopColor="#7C3AED" />
-          </linearGradient>
-        </defs>
-      </div>
+    {/* Reading progress bar */}
+    <div className="fixed top-0 left-0 w-full h-1 bg-blue-200 z-50">
+      <div 
+        className="h-full bg-blue-500 transition-all duration-300 ease-out"
+        style={{ width: `${readingProgress}%` }}
+      />
+    </div>
 
-      {/* Reading progress bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-blue-200 z-50">
-        <div 
-          className="h-full bg-blue-500 transition-all duration-300 ease-out"
-          style={{ width: `${readingProgress}%` }}
-        />
+    {/* Combined Header and Navigation */}
+    <header className="fixed top-0 left-0 right-0 bg-gradient-to-r from-blue-900 to-purple-800 p-4 flex justify-between items-center z-40">
+      <div className="flex items-center space-x-4">
+      <a href='./'>
+          <div className="text-2xl font-bold">CollabX</div>
+        </a>
       </div>
-
+   
+    </header>
+    
       <nav className="fixed top-0 left-0 right-0 p-4 flex justify-between items-center z-40 bg-gradient-to-r from-blue-900 to-purple-800">
-        <button onClick={() => console.log('Go back')} className="text-2xl hover:text-blue-300 transition-colors">
-          ←
+        
+      <a href='./'>
+          <div className="text-2xl font-bold">CollabX</div>
+        </a>
+        <nav className="flex items-center space-x-4 z-10">
+        <a href="./" className="hover:text-blue-300 transition-colors duration-300">Home</a>
+        <a href="/display" className="hover:text-blue-300 transition-colors duration-300">Collaborate</a>
+        <a href="./episode" className="hover:text-blue-300 transition-colors duration-300">Read</a>
+        <a href="./inspiration" className="hover:text-blue-300 transition-colors duration-300">AI</a>
+        <button className="bg-gradient-to-br from-purple-900 to-indigo-900 px-4 py-2 rounded hover:opacity-90 transition-opacity duration-300">
+          Login
         </button>
         <button onClick={() => setIsNavOpen(!isNavOpen)} className="text-2xl hover:text-blue-300 transition-colors">
           ☰
         </button>
+      </nav>
+  
       </nav>
 
       <div className="pt-20 px-4 max-w-3xl mx-auto relative z-10 fade-in">
