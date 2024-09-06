@@ -170,12 +170,12 @@ export default function LostCityPage() {
         <div className="mb-8 relative ">
           <img
             src="/placeholder.svg?height=256&width=1024"
-            alt="Lost City"
+            alt="Blue Blooded Monsters"
             className="w-full h-64 object-cover rounded-lg"
           />
           <div className="absolute bottom-4 left-4">
-            <h1 className="text-4xl font-bold mb-2">LOST CITY</h1>
-            <p className="mb-4">Initiating Your Journey..</p>
+            <h1 className="text-4xl font-bold mb-2">Blue Blooded Monsters</h1>
+            <p className="mb-4">2040s..</p>
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleWatchNow}

@@ -22,7 +22,7 @@ const HomePage: React.FC = () => {
   };
 
   const copyLink = () => {
-    navigator.clipboard.writeText("https://collabx.com/join");
+    navigator.clipboard.writeText("https://discord.gg/nKXmgD87");
     alert("Link copied to clipboard!");
   };
   return (
@@ -137,8 +137,8 @@ const HomePage: React.FC = () => {
             <>
               <a href={`/display`}>
                 <ProjectCard
-                  title="Slice of Life in Kabuki-cho"
-                  author="Local Toyota"
+                  title="Blue Blooded Monsters"
+                  author="Apocalypse Man"
                   image="/placeholder.svg?height=300&width=500"
                   isNew={true}
                   views={234}
@@ -147,8 +147,8 @@ const HomePage: React.FC = () => {
                 />
               </a>
               <ProjectCard
-                title="Slice of Life in Kabuki-cho (Comics)"
-                author="Local Toyota"
+                title="Gods' Graveyard"
+                author="manzana podrida"
                 image="/placeholder.svg?height=300&width=500"
                 isNew={false}
                 views={234}
@@ -228,23 +228,16 @@ const HomePage: React.FC = () => {
             </p>
             <p className="mb-4">
               But collaboration at CollabX isn't just for artists. We're also
-              looking for talented developers, business minds, and sponsors to
+              looking for talented developers, business minded volunteers to raise funds together, and sponsors to
               join our community and help bring these amazing stories to life.
             </p>
             <div className="flex space-x-4 mt-6">
-              <button
-                className="flex items-center bg-blue-600 px-4 py-2 rounded hover:bg-blue-500 transition-colors duration-300"
-                onClick={() => {
-                  /* Add join functionality */
-                }}
-              >
-                <FiUserPlus className="mr-2" /> Join Now
-              </button>
+             
               <button
                 className="flex items-center bg-green-600 px-4 py-2 rounded hover:bg-green-500 transition-colors duration-300"
                 onClick={copyLink}
               >
-                <FiCopy className="mr-2" /> Copy Invite Link
+                <FiCopy className="mr-2" /> Copy Discord Link
               </button>
             </div>
           </div>
