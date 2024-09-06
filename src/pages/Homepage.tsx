@@ -95,7 +95,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Project Cards */}
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6 ">
           {activeTab === 'new' ? (
             <>
               <a href={`/display`}>
@@ -190,15 +190,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ title, author, image, isNew, 
 
   return (
     <div
-      className="bg-gradient-to-br from-blue-800 to-purple-700 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 relative"
+      className="mt-4 bg-gradient-to-br from-blue-800 to-purple-700  rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 relative"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative">
         {isHovered ? (
-          <video src={image} className="w-full h-48 object-cover" autoPlay muted loop />
+          <video src={image} className="w-full h-64 object-cover" autoPlay muted loop />
         ) : (
-          <img src={image} alt={title} className="w-full h-48 object-cover" />
+          <img src={image} alt={title} className="w-full h-64 object-cover" />
         )}
         {isNew && (
           <span className="absolute top-2 left-2 bg-blue-500 px-2 py-1 rounded text-sm">New</span>
