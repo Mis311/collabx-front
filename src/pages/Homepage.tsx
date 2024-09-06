@@ -83,11 +83,11 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Sub-Navigation (All, Video, etc.) */}
-        <div className="space-x-4 mb-8 text-lg">
+        <div className="space-x-12 mb-12 text-lg font-normal ">
           {['All', 'Video', 'Manga/Webtoon', 'Visual Novel/Text'].map((item) => (
             <button
               key={item}
-              className="hover:text-blue-300 underline hover:no-underline transition-colors duration-300"
+              className="hover:text-blue-300 hover:underline transition-colors duration-300 hover:font-semibold"
             >
               {item}
             </button>
