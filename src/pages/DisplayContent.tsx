@@ -20,6 +20,13 @@ interface DonationModalProps {
   onClose: () => void
 }
 
+interface ContributionCard {
+  id: number
+  title: string
+  contributor: string
+  image: string
+}
+
 const ContributionModal: React.FC<ContributionModalProps> = ({ isOpen, onClose, role, reward }) => {
   if (!isOpen) return null
 
@@ -30,7 +37,7 @@ const ContributionModal: React.FC<ContributionModalProps> = ({ isOpen, onClose, 
         <p className="mb-4 text-gray-300">Reward: {reward}</p>
         <form onSubmit={(e) => { e.preventDefault(); console.log('Submission for', role); onClose(); }}>
           <input type="file" className="mb-4 text-white" />
-          <button type="submit" className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+          <button type="submit" className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90">
             Submit
           </button>
         </form>
@@ -54,7 +61,7 @@ const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
             <option>PayPal</option>
             <option>Crypto</option>
           </select>
-          <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          <button type="submit" className="bg-gradient-to-br from-blue-900 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90">
             Finalize Donation
           </button>
         </form>
@@ -75,6 +82,12 @@ export default function LostCityPage() {
     { id: 3, title: 'Episode 3', isNew: true },
   ]
 
+  const contributionCards: ContributionCard[] = [
+    { id: 1, title: 'Character Design', contributor: 'John Doe', image: '/placeholder.svg?height=200&width=200' },
+    { id: 2, title: 'Background Art', contributor: 'Jane Smith', image: '/placeholder.svg?height=200&width=200' },
+    { id: 3, title: 'Story Concept', contributor: 'Alex Johnson', image: '/placeholder.svg?height=200&width=200' },
+  ]
+
   const handleWatchNow = () => {
     console.log('Navigating to watch page')
     // Implement your navigation logic here
@@ -90,10 +103,20 @@ export default function LostCityPage() {
     setIsContributionModalOpen(true)
   }
 
+  const handleApprove = (id: number) => {
+    console.log(`Approved contribution ${id}`)
+    // Implement your approval logic here
+  }
+
+  const handleDisapprove = (id: number) => {
+    console.log(`Disapproved contribution ${id}`)
+    // Implement your disapproval logic here
+  }
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-     <header className="flex justify-between items-center p-4 bg-gray-800">
-       <a href='./'> <div className="text-2xl font-bold">CollabX</div></a>
+      <header className="flex justify-between items-center p-4 bg-gray-800">
+        <a href='./'> <div className="text-2xl font-bold">CollabX</div></a>
         <nav className="space-x-4">
           {['Home', 'Collaborate', 'Funding', 'Join CollabX Team'].map((item) => (
             <a
@@ -105,7 +128,7 @@ export default function LostCityPage() {
             </a>
           ))}
         </nav>
-        <button className="bg-gray-700 px-4 py-2 rounded hover:bg-gray-600 transition-colors duration-300">
+        <button className="bg-gradient-to-br from-purple-900  to-indigo-900 px-4 py-2 rounded hover:opacity-90 transition-opacity duration-300">
           Login
         </button>
       </header>
@@ -123,7 +146,7 @@ export default function LostCityPage() {
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleWatchNow}
-                className="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700"
+                className="bg-gradient-to-br from-purple-900 to-indigo-900 text-white px-6 py-2 rounded-full hover:opacity-90"
               >
                 Watch Now
               </button>
@@ -141,13 +164,13 @@ export default function LostCityPage() {
         </div>
 
         <div className="mb-8">
-          <button className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">
+          <button className="bg-gradient-to-br from-purple-900 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90">
             Apply for Collab X
           </button>
         </div>
 
         <div className="grid grid-cols-4 gap-4 mb-8">
-          <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">Comics</button>
+          <button className="bg-gradient-to-br from-purple-800 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90">Comics</button>
           <button className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Visual Novel</button>
           <button className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Animation</button>
           <button className="bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-600">Music</button>
@@ -170,23 +193,23 @@ export default function LostCityPage() {
           ))}
         </div>
 
-        <div className="bg-gray-800 p-4 rounded-lg">
+        <div className="bg-gray-800 p-4 rounded-lg mb-8">
           <div className="grid grid-cols-3 gap-4 mb-4">
             <button
               onClick={() => handleContributorClick('Cartoonist')}
-              className={`p-2 rounded ${selectedRole === 'Cartoonist' ? 'bg-purple-600' : 'bg-gray-700'} hover:bg-purple-700`}
+              className={`p-2 rounded ${selectedRole === 'Cartoonist' ? 'bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900' : 'bg-gray-700'} hover:opacity-90`}
             >
               Cartoonist
             </button>
             <button
               onClick={() => handleContributorClick('AI generator')}
-              className={`p-2 rounded ${selectedRole === 'AI generator' ? 'bg-purple-600' : 'bg-gray-700'} hover:bg-purple-700`}
+              className={`p-2 rounded ${selectedRole === 'AI generator' ? 'bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900' : 'bg-gray-700'} hover:opacity-90`}
             >
               AI generator
             </button>
             <button
               onClick={() => handleContributorClick('Marketer')}
-              className={`p-2 rounded ${selectedRole === 'Marketer' ? 'bg-purple-600' : 'bg-gray-700'} hover:bg-purple-700`}
+              className={`p-2 rounded ${selectedRole === 'Marketer' ? 'bg-gradient-to-br from-blue-900 via-purple-800 to-indigo-900' : 'bg-gray-700'} hover:opacity-90`}
             >
               Marketer
             </button>
@@ -199,10 +222,37 @@ export default function LostCityPage() {
           </div>
           <button
             onClick={() => setIsContributionModalOpen(true)}
-            className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+            className="bg-gradient-to-br from-purple-800 to-indigo-900 text-white px-4 py-2 rounded hover:opacity-90"
           >
             Contribute
           </button>
+        </div>
+
+        <div className="bg-gray-800 p-4 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4">Recent Contributions</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {contributionCards.map((card) => (
+              <div key={card.id} className="bg-gray-700 p-4 rounded-lg">
+                <img src={card.image} alt={card.title} className="w-full h-40 object-cover rounded-lg mb-4" />
+                <h3 className="text-lg font-semibold mb-2">{card.title}</h3>
+                <p className="text-sm mb-4">By {card.contributor}</p>
+                <div className="flex justify-between">
+                  <button
+                    onClick={() => handleApprove(card.id)}
+                    className="bg-gradient-to-br from-blue-900 to-purple-800  text-white px-3 py-1 rounded hover:opacity-90"
+                  >
+                    Approve
+                  </button>
+                  <button
+                    onClick={() => handleDisapprove(card.id)}
+                    className="bg-gray-600 text-white px-3 py-1 rounded hover:bg-gray-500"
+                  >
+                    Disapprove
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </main>
 
